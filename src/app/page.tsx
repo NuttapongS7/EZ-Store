@@ -2,9 +2,10 @@ import React from 'react';
 import { Product } from '../types';
 import ProductCatalog from '../components/ProductCatalog';
 import Header from '../components/Header';
+import productsData from '../data/products.json';
 
 // Next.js App Router Server Component fetching mock data
-async function getProducts(): Promise<Product[]> {
+{/*async function getProducts(): Promise<Product[]> {
   try {
     const res = await fetch('https://fakestoreapi.com/products', {
       // ดึงข้อมูลใหม่ทุกๆ 3600 วินาที
@@ -21,11 +22,11 @@ async function getProducts(): Promise<Product[]> {
     console.error('Failed to fetch products:', error);
     return [];
   }
-}
+*/}
 
 export default async function Home() {
-  const products = await getProducts();
-
+  {/*const products = await getProducts();*/ }
+  const products = productsData as Product[];
   return (
     <main className="min-h-screen bg-gray-50">
       <Header />
