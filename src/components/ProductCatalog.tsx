@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Product } from '../types';
 import ProductGrid from './ProductGrid';
 import { useDebounce } from '../hooks/useDebounce';
+import productsData from '../data/products.json';
 
 interface ProductCatalogProps {
   initialProducts: Product[];
@@ -14,7 +15,8 @@ export default function ProductCatalog({ initialProducts }: ProductCatalogProps)
   const [category, setCategory] = useState('');
   const [priceRange, setPriceRange] = useState(''); // 'under-50', '50-200', 'over-200', ''
   const [sortBy, setSortBy] = useState(''); // 'price-asc', 'price-desc', 'name-asc', 'name-desc', ''
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
   // 1. Debounce Search
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
@@ -51,6 +53,17 @@ export default function ProductCatalog({ initialProducts }: ProductCatalogProps)
 
     return result;
   }, [initialProducts, debouncedSearchTerm, category, priceRange, sortBy]);
+
+  useEffect(() => {
+    // จำลองเวลาโหลดข้อมูล (Fake Loading) 1.5 วินาที เพื่อให้เห็น Skeleton
+    // ในของจริง ถ้า fetch API ก็แค่รอให้ fetch เสร็จ
+    const timer = setTimeout(() => {
+      setProducts(productsData as Product[]);
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
 
   return (

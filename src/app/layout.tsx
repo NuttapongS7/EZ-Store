@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | My Shop",
   },
   description: "Shop the best products at great prices.",
-  metadataBase: new URL("https://yourdomain.com"),
+  metadataBase: new URL("https://ez-store-phi.vercel.app/"),
 };
 
 export default function RootLayout({
